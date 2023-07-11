@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -37,6 +39,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 45)]
     private ?string $last_name = null;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Profile::class)]
+    private Collection $profiles;
+
+    public function __construct()
+    {
+        $this->profiles = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -128,6 +138,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setLastName(string $last_name): static
     {
         $this->last_name = $last_name;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Profile>
+     */
+    public function getProfiles(): Collection
+    {
+        return $this->profiles;
+    }
+
+    public function addProfile(Profile $profile): static
+    {
+        if (!$this->profiles->contains($profile)) {
+            $this->profiles->add($profile);
+            $profile->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProfile(Profile $profile): static
+    {
+        if ($this->profiles->removeElement($profile)) {
+            // set the owning side to null (unless already changed)
+            if ($profile->getUser() === $this) {
+                $profile->setUser(null);
+            }
+        }
 
         return $this;
     }
