@@ -3,14 +3,14 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
-use App\Repository\ProfileRepository;
+use App\Repository\MissionRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: ProfileRepository::class)]
-#[ORM\Table(name: 'Profiles')]
+#[ORM\Entity(repositoryClass: MissionRepository::class)]
+#[ORM\Table(name: 'Missions')]
 #[ApiResource]
-class Profile
+class Mission
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -23,8 +23,8 @@ class Profile
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
-    #[ORM\ManyToOne(inversedBy: 'profiles')]
-    #[ORM\JoinColumn(nullable: false)]    
+    #[ORM\ManyToOne(inversedBy: 'missions')]
+    #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
     public function getId(): ?int
