@@ -1,0 +1,9 @@
+api_platform:
+    # The title of the API.
+    title: 'XBP IT Marketplace API'
+    # The description of the API.
+    # description: 'API description'
+    # The version of the API.
+    version: '0.0.1'
+    # Set this to false if you want Webby to disappear.
+    show_webby: false
