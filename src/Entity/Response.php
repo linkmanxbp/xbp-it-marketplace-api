@@ -24,9 +24,13 @@ class Response
     #[ORM\OneToMany(mappedBy: 'response', targetEntity: ResponseUser::class)]
     private Collection $responseUsers;
 
+    #[ORM\OneToMany(mappedBy: 'response', targetEntity: Message::class)]
+    private Collection $messages;
+
     public function __construct()
     {
         $this->responseUsers = new ArrayCollection();
+        $this->messages = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -70,6 +74,36 @@ class Response
             // set the owning side to null (unless already changed)
             if ($responseUser->getResponse() === $this) {
                 $responseUser->setResponse(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Message>
+     */
+    public function getMessages(): Collection
+    {
+        return $this->messages;
+    }
+
+    public function addMessage(Message $message): static
+    {
+        if (!$this->messages->contains($message)) {
+            $this->messages->add($message);
+            $message->setResponse($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMessage(Message $message): static
+    {
+        if ($this->messages->removeElement($message)) {
+            // set the owning side to null (unless already changed)
+            if ($message->getResponse() === $this) {
+                $message->setResponse(null);
             }
         }
 

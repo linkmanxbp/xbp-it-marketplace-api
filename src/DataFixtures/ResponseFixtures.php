@@ -11,7 +11,7 @@ use Doctrine\Persistence\ObjectManager;
 
 class ResponseFixtures extends Fixture implements DependentFixtureInterface
 {
-    public function getData(): array
+    private function getData(): array
     {
         return [
             //'author' => 3,
