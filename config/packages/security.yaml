@@ -2,8 +2,6 @@ security:
     # https://symfony.com/doc/current/security.html#registering-the-user-hashing-passwords
     password_hashers:
         Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
-    # https://symfony.com/doc/current/security/authenticator_manager.html
-    enable_authenticator_manager: true
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
         # used to reload user from session & other features (e.g. switch_user)
@@ -33,7 +31,7 @@ security:
     access_control:
         - { path: ^/api$, roles: PUBLIC_ACCESS } # Allows accessing the Swagger UI
         - { path: ^/api/authentication_token, roles: PUBLIC_ACCESS }
-        - { path: ^/api/missions, roles: IS_AUTHENTICATED_FULLY }  
+        #- { path: ^/api/missions, roles: IS_AUTHENTICATED_FULLY } # Leave as an example
 
 when@test:
     security:

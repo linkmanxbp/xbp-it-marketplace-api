@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\InheritanceType('SINGLE_TABLE')]
 #[ORM\DiscriminatorColumn(name: 'discr', type: 'smallint')]
 #[ORM\DiscriminatorMap([0 => Mission::class, 1 => Profile::class])]
-abstract class Ad
+class Ad
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
