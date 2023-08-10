@@ -59,7 +59,7 @@ class MissionTest extends ApiTestCase
             ]
         ]);
 
-        $this->assertResponseStatusCodeSame(500);
+        $this->assertResponseStatusCodeSame(422);
     }
 
     public function testUpdateMission(): void
