@@ -28,7 +28,12 @@ use Doctrine\ORM\Mapping as ORM;
                 'security' => [['bearerAuth' => []]]
             ]
         ),
-        new Post(),
+        new Post(
+            security: 'is_granted("ROLE_USER", object)',
+            openapiContext: [
+                'security' => [['bearerAuth' => []]]
+            ]
+        ),
         new Put(),
         new Delete(),
         new Patch()
